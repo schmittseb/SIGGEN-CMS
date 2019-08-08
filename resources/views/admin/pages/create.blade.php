@@ -3,7 +3,6 @@
 @section('content')
 
     <div class="container">
-        <h4>Create new page</h4>
         <form action="{{ route('pages.store') }}" method="POST">
             @include('/admin/pages/partials/fields')
         </form>

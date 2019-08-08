@@ -15,24 +15,22 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:100,100i,400,400i,700,700i|IBM+Plex+Serif:400,400i&display=swap"
+          rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/summernote-bs4.css') }}" rel="stylesheet">
 
-    <link href="{{ asset('css/style-colour.css') }}" rel="stylesheet">
-    <style>td {
-            vertical-align: middle !important;
-        }</style>
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
     @yield('styles')
 
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-expand-md shadow-sm">
+    <!--nav class="navbar navbar-expand-md shadow-sm"-->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/home') }}">
                 SIGGEN
@@ -49,6 +47,30 @@
                     @include('partials.nav')
                 </ul>
 
+                <!-- Right Side Of Navbar -->
+                <ul class="navbar-nav ml-auto">
+                    @auth
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    @endauth
+                </ul>
 
             </div>
         </div>
@@ -59,23 +81,28 @@
     </main>
 </div>
 <footer class="footer">
-    <div class="container">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a href="" class="nav-link">© 2019 Sebastian Schmitt</a>
-            </li>
-            @guest
-                <li class="nav-item">
-                    <a href="{{ route('login') }}" class="nav-link">Admin area</a>
-                </li>
-            @else
-                <li class="nav-item">
-                    <a href="/admin/" class="nav-link">Admin area</a>
-                </li>
-            @endguest
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <!--ul class="navbar-nav mr-auto"-->
+            <ul class="navbar-nav mr-auto">
 
-        </ul>
-    </div>
+                <li class="nav-item">
+                    <a href="https://www.linkedin.com/in/sebastian-schmitt-42a66a165/" class="nav-link">© 2019 Sebastian
+                        Schmitt</a>
+                </li>
+                @guest
+                    <li class="nav-item">
+                        <a href="{{ route('login') }}" class="nav-link">Admin area</a>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a href="{{ route('login') }}" class="nav-link">Admin area</a>
+                    </li>
+                @endguest
+
+            </ul>
+        </div>
+        <nav>
 </footer>
 
 @yield('scripts')

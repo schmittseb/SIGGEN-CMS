@@ -18,7 +18,7 @@ class PagesController extends Controller
 
     public function __construct(Page $pages)
     {
-        $this->pages = $pages;
+       $this->pages = $pages;
        $this->middleware('admin');
     }
 
@@ -51,7 +51,7 @@ class PagesController extends Controller
      */
     public function store(WorkWithPage $request)
     {
-        $page = new Page($request->only(['title', 'url', 'content']));
+        $page = new Page($request->only(['title', 'url', 'weight', 'content']));
         Auth::user()->pages()->save($page);
 
         //$this->updatePageOrder($page, $request);
@@ -86,12 +86,17 @@ class PagesController extends Controller
             return $response;
         }*/
 
-        $page->fill($request->only(['title', 'url', 'content']));
+        $page->fill($request->only(['title', 'url', 'weight', 'content']));
 
         $page->save();
 
         return redirect('/admin/pages/')->with('status', "The page '$page->title' was successfully updated.");
         //return redirect()->route('admin.pages.index')->with('status', "The page '$page->title' was successfully updated.");
+    }
+
+    public function changeOrder()
+    {
+
     }
 
     /**
@@ -103,6 +108,9 @@ class PagesController extends Controller
     public function destroy($id)
     {
         $page = $this->pages->findOrFail($id);
+        if ($page->url == "/home") {
+            return redirect('/admin/pages/')->with('status', "The home page can't be deleted as it is needed as the starting page when the website is called");
+        }
         $page->delete();
         return redirect('/admin/pages/')->with('status', "The page '$page->title' was successfully deleted.");
         //return view()->route('admin.pages.index')->with('status', "The page '$page->title' was successfully updated.");

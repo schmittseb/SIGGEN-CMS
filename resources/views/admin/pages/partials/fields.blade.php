@@ -22,27 +22,11 @@
     <input type="text" class="form-control" id="url" name="url" value='{{ $model->url }}'>
 </div>
 
-{{--<div class="form-group row">
-    <div class="col-md-12">
-        <label for="">Order</label>
-    </div>
-    <div class="col-md-2">
-        <select name="order" id="order" class="form-control">
-            <option value=""></option>
-            <option value="before">Before</option>
-            <option value="after">After</option>
-            <option value="child">Child</option>
-        </select>
-    </div>
-    <div class="col-md-5">
-        <select name="orderPage" id="orderPage" class="form-control">
-            <option value=""></option>
-            @foreach($orderPages as $page)
-                <option value="{{$page->id}}">{{$page->present()->paddedTitle}}</option>
-            @endforeach
-        </select>
-    </div>
-</div>--}}
+
+<div class="form-group">
+    <label for="weight">Weight</label>
+    <input type="number" class="form-control" id="weight" name="weight" value='{{ $model->weight }}'>
+</div>
 
 <div class="form-group">
     <label for="content">Content</label>
@@ -50,6 +34,6 @@
 </div>
 
 <div class="form-group">
-    <input type="submit" class="btn btn-color" id="title" value='Submit'>
+    <input type="submit" class="btn btn-color btn-outline-dark" id="title" value='Submit'>
 </div>
 

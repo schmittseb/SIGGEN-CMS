@@ -20,7 +20,7 @@
 
 
             <div class="form-group">
-                <input type="submit" class="btn btn-color" id="title" value='Submit'>
+                <input type="submit" class="btn btn-color btn-outline-dark" id="title" value='Submit'>
             </div>
         </form>
     </div>

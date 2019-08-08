@@ -28,5 +28,5 @@
 </div>
 
 <div class="form-group">
-    <input type="submit" class="btn btn-primary" id="title" value='Submit'>
+    <input type="submit" class="btn btn-primary btn-outline-dark" id="title" value='Submit'>
 </div>

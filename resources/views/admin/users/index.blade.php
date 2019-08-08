@@ -3,7 +3,6 @@
 @section('content')
 
     <div class="container">
-        <h4>User Management</h4>
         @if (session('status'))
             <div class="alert alert-info">
                 {{ session('status') }}
@@ -17,6 +16,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Roles</th>
+                    <th></th>
                 </tr>
             </thead>
                 @foreach($model as $user)
@@ -26,6 +26,13 @@
                         </td>
                         <td>{{$user->email}}</td>
                         <td>{{implode(', ', $user->roles()->get()->pluck('name')->toArray())}}</td>
+                        <td>
+                        <form method="POST" action="{{route('users.destroy', $user->id) }}">
+                            @csrf
+                            {{ method_field('DELETE') }}
+                            <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this user?')" class="btn btn-danger"/>
+                        </form>
+                        </td>
                     </tr>
                 @endforeach
         </table>

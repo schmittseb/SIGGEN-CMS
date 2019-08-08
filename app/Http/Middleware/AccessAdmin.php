@@ -16,10 +16,10 @@ class AccessAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->hasAnyRoles(['admin', 'editor', 'author'])){
+        if (Auth::check() && Auth::user()->hasAnyRoles(['admin', 'editor'])){
             return $next($request);
         }
 
-        return redirect(route('home'));
+        return redirect('/');
     }
 }

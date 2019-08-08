@@ -15,22 +15,21 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:100,100i,400,400i,700,700i|IBM+Plex+Serif:400,400i&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/summernote-bs4.css') }}" rel="stylesheet">
 
-    <link href="{{ asset('css/style-colour.css') }}" rel="stylesheet">
-    <style>td { vertical-align: middle !important; }</style>
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
     @yield('styles')
 
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
+        <!--nav class="navbar navbar-expand-md shadow-sm"-->
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     SIGGEN
@@ -42,49 +41,34 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        @guest
                             <li class="nav-item">
-                                <a href="{{ route('login') }}" class="nav-link" >{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item">
-                                <a href="{{ route('pages.index') }}" class="nav-link">
+                                <a class="nav-link {{ Request::is("admin/pages") ? 'active' : '' }}" href="{{ route('pages.index') }}">
                                     Overview existing pages
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('pages.create') }}" class="nav-link">
+                                <a class="nav-link {{ Request::is("admin/pages/create") ? 'active' : '' }}" href="{{ route('pages.create') }}">
                                     Create new page
                                 </a>
                             </li>
                         @can('manageUsers', App\User::class)
                             <li class="nav-item">
-                                <a href="{{ route('users.index') }}" class="nav-link">
+                                <a class="nav-link {{ Request::is("admin/users") ? 'active' : '' }}" href="{{ route('users.index') }}">
                                     Manage users
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is("register") ? 'active' : '' }}" href="{{ route('register') }}">
+                                    Create new user
+                                </a>
+                            </li>
                         @endcan
-                        @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
+
+                        @auth
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -102,7 +86,7 @@
                                     </form>
                                 </div>
                             </li>
-                        @endguest
+                        @endauth
                     </ul>
                 </div>
             </div>
@@ -112,6 +96,22 @@
             @yield('content')
         </main>
     </div>
+    <footer class="footer">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a href="https://www.linkedin.com/in/sebastian-schmitt-42a66a165/" class="nav-link">© 2019 Sebastian Schmitt</a>
+                </li>
+
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">Back to website</a>
+                    </li>
+
+
+            </ul>
+        </div>
+    </footer>
 
 
     @yield('scripts')

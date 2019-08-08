@@ -11,22 +11,20 @@
 |
 */
 
-//Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index');
 
 Route::get('/', function () {
     return redirect('/home');
 });
 
+// Automatically generated for the login and register routes
 Auth::routes();
 
 Route::get('/admin', function() {
     return view('admin.index');
 })->middleware('admin');
 
-
-
 Route::resource('/admin/pages', 'Admin\PagesController', ['except' => ['show']]);
 
-Route::resource('/admin/users', 'Admin\UsersController', ['except' => ['show', 'create', 'store']]);
+Route::resource('/admin/users', 'Admin\UsersController', ['except' => ['show']]);
 
-Route::get('/home', 'HomeController@index')->name('home');
